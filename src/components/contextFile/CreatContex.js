@@ -1,24 +1,17 @@
 import { createContext } from "react";
 import React, { useState, useEffect } from "react";
-import axios from "axios";
 export const UserContext = createContext();
-
-export const UseProvider = (props) => {
-  const [userdata, setuserdata] = useState();
-
-  const Getitem = async () => {
-    await axios
-      .get("https://jsonplaceholder.typicode.com/users")
-      .then(function (response) {
-        // handle success
-
-        setuserdata(response.data);
-      })
-      .catch(function (error) {});
-  };
+export const UseProvider = ({ children }) => {
+  const [user, setuser] = useState();
   useEffect(() => {
-    Getitem();
-  });
-  console.log(userdata);
-  return <UserContext.Provider value={userdata}>{props.children}</UserContext.Provider>;
+    fetch("https://jsonplaceholder.typicode.com/users")
+      .then((res) => {
+        return res.json();
+      })
+      .then((data) => {
+        setuser(data);
+      });
+  }, []);
+
+  return <UserContext.Provider value={user}>{children}</UserContext.Provider>;
 };

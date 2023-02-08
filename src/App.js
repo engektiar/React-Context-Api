@@ -4,11 +4,9 @@ import Home from "./components/Homepage/Home";
 
 function App() {
   return (
-    <div>
-      <UseProvider>
-        <Home />
-      </UseProvider>
-    </div>
+    <UseProvider>
+      <Home />
+    </UseProvider>
   );
 }
 
